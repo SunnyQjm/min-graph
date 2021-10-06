@@ -166,7 +166,7 @@ def draw(ndnResultFile: str, minResultFile: str, savePath: str, getXYFun=getXY,
     if ylim >= 0:
         plt.ylim(ylim)
     # plt.ylim(60, 80)  # 实验0专用
-    plt.legend(loc=0, fontsize=fontSize - 2)
+    plt.legend(loc=0, fontsize=fontSize - 4)
     plt.rc('font', family='Times New Roman')
 
     # save pictures
