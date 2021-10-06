@@ -5,6 +5,7 @@ import sys
 import numpy as np
 from utils import extractTCPResult, TCPMeasureItem, TCPMeasureResult, extractUDPResult, UDPMeasureItem, \
     extractUDPResult2
+import matplotlib
 import matplotlib.pyplot as plt
 
 
@@ -155,14 +156,18 @@ def draw(ndnResultFile: str, minResultFile: str, savePath: str, getXYFun=getXY,
     l1 = plt.plot(x1, y1, 'r', label='NDN', linestyle='dotted', marker='o',
                   markerfacecolor='none', markersize=4)
 
+    fontSize = 24
     if title:
         plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
+    plt.xlabel(xlabel, fontsize=fontSize)
+    plt.xticks(fontsize=fontSize)
+    plt.ylabel(ylabel, fontsize=fontSize)
+    plt.yticks(fontsize=fontSize)
     if ylim >= 0:
         plt.ylim(ylim)
     # plt.ylim(60, 80)  # 实验0专用
-    plt.legend(loc=0)
+    plt.legend(loc=0, fontsize=fontSize - 2)
+    plt.rc('font', family='Times New Roman')
 
     # save pictures
     full_path = os.getcwd() + "/" + savePath  # 将图片保存到当前目录，记得斜杠；可更改文件格式（.tif），不写的话默认“.png ”
@@ -172,6 +177,7 @@ def draw(ndnResultFile: str, minResultFile: str, savePath: str, getXYFun=getXY,
 
 
 if __name__ == '__main__':
+    matplotlib.rcParams['text.usetex'] = True
     draw(
         ndnResultFile="result_1500/ndn_3node_buffersize4M_tcp_1.txt",
         minResultFile="result_1500/min_3node_buffersize4M_tcp_1.txt",
@@ -257,4 +263,3 @@ if __name__ == '__main__':
         ylabel="lost rate(%)",
         getXYFun=getLostRateXY
     )
-    print(extractUDPResult2("result_1500/ndn_3node_buffersize4M_udp_100m.txt"))
